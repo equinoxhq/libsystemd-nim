@@ -1,13 +1,18 @@
-import pkg/libsystemd/bus
+import pkg/[pretty, libsystemd]
 
-var bus = newBus()
+var sdbus = newBus()
   .connectToUserBus()
-  .requestName("com.example.hello", "/com/example/Hello")
-  .registerMethod(
-    "SayHello",
-    proc(m: ptr sd_bus_message, userdata: pointer, ret_error: ptr sd_bus_error): cint {.cdecl.} =
-      return sd_bus_reply_method_return(m, "s".cstring, "Hallo :3".cstring)
-  )
+  .requestName("com.example.hello")
 
-while bus.running:
-  bus.processMessages()
+let names = sdbus.listAcquiredNames()
+print names
+
+let act = sdbus.listActivatableNames()
+print act
+
+while true:
+  try:
+    sdbus.processMessages()
+  except BusError: break
+
+sdbus.release("com.example.hello")

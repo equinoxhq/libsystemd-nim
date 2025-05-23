@@ -1,3 +1,3 @@
-import pkg/libsystemd/[id128, login], pkg/libsystemd/bindings/prelude
+import pkg/libsystemd/[id128, login, bus], pkg/libsystemd/bindings/prelude
 
-export id128, login
+export id128, login, bus

@@ -1,6 +1,6 @@
 ## high-level wrapper for sd-login.h
 import std/[net, posix, times]
-import pkg/libsystemd/bindings/login
+import pkg/libsystemd/bindings/[libc, login]
 
 type
   SomePid* = SomeInteger | Pid
@@ -12,8 +12,6 @@ type
     Online = "online"
     Active = "active"
     Closing = "closing"
-
-proc free*(p: pointer): void {.importc, header: "<stdlib.h>".}
 
 func toSessionState*(str: string): SessionState {.raises: [ValueError].} =
   case str

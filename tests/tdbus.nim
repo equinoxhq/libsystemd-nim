@@ -12,6 +12,7 @@ var r: int32
 r = sd_bus_open_user(bus.addr)
 var nam: cstring
 discard sd_bus_get_unique_name(bus, nam)
+echo "name: " & $nam
 chk
 
 var vtables: seq[sd_bus_vtable]
