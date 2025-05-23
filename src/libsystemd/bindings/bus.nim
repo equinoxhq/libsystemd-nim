@@ -208,8 +208,8 @@ proc sd_bus_message_new_method_return*(
 
 proc sd_bus_reply_method_return*(
   call: ptr sd_bus_message,
-  types: cstring, args: varargs[cstring]
-): int32
+  types: cstring
+): int32 {.varargs.}
 
 proc sd_bus_message_new_method_error*(
   call: ptr sd_bus_message, m: ptr ptr sd_bus_message, e: ptr sd_bus_error
@@ -344,7 +344,7 @@ proc sd_bus_message_sensitive*(m: ptr sd_bus_message): int32
 proc sd_bus_message_dump*(m: ptr sd_bus_message, f: File, flags: uint64): int32
 
 proc sd_bus_get_unique_name*(
-  bus: ptr sd_bus, unique: ptr UncheckedArray[cstring]
+  bus: ptr sd_bus, unique: cstring
 ): int32
 
 proc sd_bus_request_name*(bus: ptr sd_bus, name: cstring, flags: uint64): int32
